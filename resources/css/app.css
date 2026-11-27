@@ -58,3 +58,12 @@ html[data-theme="dark"] .modal-minimal-close:hover{background:#303044;color:#b8b
 .post-card[draggable="true"]:active{cursor:grabbing}
 .post-card-dragging{opacity:.42;transform:scale(.98)}
 html[data-theme="dark"] .category-column.category-drop-active{background:#292541;box-shadow:0 0 0 2px #7468c8 inset}
+
+
+/* Soft red identification for interview-question cards in Others */
+.post-card-other{background:#fffafa;border-color:#f1dddd;box-shadow:0 3px 12px #9f454508}
+.post-card-other:hover{background:#fff5f5;border-color:#e9caca;box-shadow:0 10px 24px #9f454510}
+.post-card-other h3{color:#754b50}
+html[data-theme="dark"] .post-card-other{background:#291f25;border-color:#50343d;box-shadow:0 4px 15px #00000020}
+html[data-theme="dark"] .post-card-other:hover{background:#33232b;border-color:#79505d;box-shadow:0 10px 26px #00000035}
+html[data-theme="dark"] .post-card-other h3{color:#f0cbd1}
