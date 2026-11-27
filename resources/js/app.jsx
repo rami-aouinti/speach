@@ -198,21 +198,19 @@ function App() {
           <div className="post-list">
             {category.posts.map((post) => <article className="post-card" key={post.id}>
               <button className="post-card-main" onClick={() => setModal({ type: 'post-detail', post })}>
-                <span className="post-kicker">POST <span>·</span> {new Date(post.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                <h3>{post.title}</h3><div className="post-card-description" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.description || '') }} /><span className="read-more">Read post <Icon name="arrow" /></span>
+                <h3>{post.title}</h3><div className="post-card-description" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.description || '') }} />
               </button>
               <div className="post-card-actions"><button className="icon-button tiny" onClick={() => openPost(post, category.id)} aria-label={`Edit ${post.title}`}><Icon name="edit" /></button><button className="icon-button tiny danger-hover" onClick={() => removeItem('posts', post, 'post')} aria-label={`Delete ${post.title}`}><Icon name="trash" /></button></div>
             </article>)}
             <button className="add-post-card" onClick={() => openPost(null, category.id)}><span className="add-post-icon"><Icon name="plus" /></span><span>Add a post</span></button>
           </div>
         </article>)}
-        <button className="add-category-card" onClick={() => openCategory(null)}><span className="add-post-icon"><Icon name="plus" /></span><span>Add category</span></button>
       </section>
     }
     <button className="theme-toggle" type="button" onClick={() => setDarkMode(value => !value)} aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} title={darkMode ? 'Light mode' : 'Dark mode'}><Icon name={darkMode ? 'sun' : 'moon'} /></button>
 
     {modal?.type === 'post-detail' && <Modal title={modal.post.title} subtitle={categories.find((category) => category.id === modal.post.category_id)?.name || 'Post'} onClose={() => setModal(null)} wide>
-      <div className="detail-content"><div className="detail-summary rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description || '') }} /><div className="detail-divider" /><div className="detail-body rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description_detail || '') }} /><div className="detail-meta">Published {new Date(modal.post.created_at).toLocaleDateString(undefined, { dateStyle: 'long' })}</div></div>
+      <div className="detail-content"><div className="detail-summary rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description || '') }} /><div className="detail-divider" /><div className="detail-body rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description_detail || '') }} /></div>
       <div className="modal-footer"><button className="secondary-button" onClick={() => removeItem('posts', modal.post, 'post')}><Icon name="trash" /> Delete</button><div><button className="secondary-button" onClick={() => setModal(null)}>Close</button><button className="primary-button" onClick={() => openPost(modal.post, modal.post.category_id)}><Icon name="edit" /> Edit post</button></div></div>
     </Modal>}
 
