@@ -25,7 +25,7 @@ function Icon({ name }) {
   return <svg aria-hidden="true" viewBox="0 0 24 24" className="icon" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
 }
 
-function Modal({ title, subtitle, onClose, children, wide = false }) {
+function Modal({ title, subtitle, onClose, children, wide = false, minimal = false }) {
   useEffect(() => {
     const onKey = (event) => event.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
@@ -34,8 +34,8 @@ function Modal({ title, subtitle, onClose, children, wide = false }) {
   }, [onClose]);
 
   return <div className="modal-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-    <section className={`modal ${wide ? 'modal-wide' : ''}`} role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <header className="modal-header"><div><span className="eyebrow">SPEACH WORKSPACE</span><h2 id="modal-title">{title}</h2>{subtitle && <p>{subtitle}</p>}</div><button className="icon-button" onClick={onClose} aria-label="Close"><Icon name="close" /></button></header>
+    <section className={`modal ${wide ? 'modal-wide' : ''} ${minimal ? 'modal-minimal' : ''}`} role="dialog" aria-modal="true" aria-label={title || 'Post content'}>
+      {minimal ? <button className="modal-minimal-close" onClick={onClose} aria-label="Close"><Icon name="close" /></button> : <header className="modal-header"><div><span className="eyebrow">SPEACH WORKSPACE</span><h2 id="modal-title">{title}</h2>{subtitle && <p>{subtitle}</p>}</div><button className="icon-button" onClick={onClose} aria-label="Close"><Icon name="close" /></button></header>}
       {children}
     </section>
   </div>;
@@ -209,9 +209,17 @@ function App() {
     }
     <button className="theme-toggle" type="button" onClick={() => setDarkMode(value => !value)} aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} title={darkMode ? 'Light mode' : 'Dark mode'}><Icon name={darkMode ? 'sun' : 'moon'} /></button>
 
-    {modal?.type === 'post-detail' && <Modal title={modal.post.title} subtitle={categories.find((category) => category.id === modal.post.category_id)?.name || 'Post'} onClose={() => setModal(null)} wide>
-      <div className="detail-content"><div className="detail-summary rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description || '') }} /><div className="detail-divider" /><div className="detail-body rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description_detail || '') }} /></div>
-      <div className="modal-footer"><button className="secondary-button" onClick={() => removeItem('posts', modal.post, 'post')}><Icon name="trash" /> Delete</button><div><button className="secondary-button" onClick={() => setModal(null)}>Close</button><button className="primary-button" onClick={() => openPost(modal.post, modal.post.category_id)}><Icon name="edit" /> Edit post</button></div></div>
+    {modal?.type === 'post-detail' && <Modal title="" onClose={() => setModal(null)} wide minimal>
+      <div className="modal-minimal-content">
+        <div className="detail-summary rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description || '') }} />
+        <button className="primary-button" onClick={() => setModal({ type: 'post-detail-detail', post: modal.post })}>Detail</button>
+      </div>
+    </Modal>}
+
+    {modal?.type === 'post-detail-detail' && <Modal title="" onClose={() => setModal(null)} wide minimal>
+      <div className="modal-minimal-content">
+        <div className="detail-body rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description_detail || '') }} />
+      </div>
     </Modal>}
 
     {modal?.type === 'post-form' && <Modal title={modal.post ? 'Edit post' : 'Create a post'} subtitle="Share a thought with your workspace." onClose={() => setModal(null)}>
