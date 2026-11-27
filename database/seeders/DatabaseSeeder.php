@@ -95,6 +95,10 @@ class DatabaseSeeder extends Seeder
             if ($name === 'General') {
                 $category->posts()->whereNotIn('title', array_column($posts, 0))->delete();
             }
+
+            if ($name === 'Others') {
+                $category->posts()->whereIn('title', ['Useful resources', 'Open discussion'])->delete();
+            }
         }
     }
 }
