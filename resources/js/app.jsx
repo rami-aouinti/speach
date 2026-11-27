@@ -196,7 +196,7 @@ function App() {
             <div className="category-actions"><button className="icon-button small" onClick={() => openCategory(category)} aria-label={`Edit ${category.name}`}><Icon name="edit" /></button><button className="icon-button small danger-hover" onClick={() => removeItem('categories', category, 'category')} aria-label={`Delete ${category.name}`}><Icon name="trash" /></button></div>
           </div>
           <div className="post-list">
-            {category.posts.map((post) => <article className="post-card" key={post.id}>
+            {(category.name === 'General' ? [...category.posts].sort((a, b) => ['Einführung', 'Erfahrung'].indexOf(a.title) - ['Einführung', 'Erfahrung'].indexOf(b.title)) : category.posts).map((post) => <article className="post-card" key={post.id}>
               <button className="post-card-main" onClick={() => setModal({ type: 'post-detail', post })}>
                 <h3>{post.title}</h3>
               </button>
