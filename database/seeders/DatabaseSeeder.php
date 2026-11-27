@@ -20,6 +20,51 @@ class DatabaseSeeder extends Seeder
                     'Erfahrung',
                     '<h2>Beruflicher Werdegang</h2><p>In meinen bisherigen Positionen habe ich an unterschiedlichen E-Commerce- und Backend-Projekten gearbeitet – von Shopware-Plugins und Online-Shops bis hin zu Symfony-Microservices, REST-APIs und Cloud-Infrastrukturen.</p><h3>Wizmo GmbH <small>08/2018 – 04/2021 · Junior Full-Stack-Entwickler</small></h3><p>Bei Wizmo habe ich an verschiedenen Web- und E-Commerce-Projekten mitgearbeitet. Zu Beginn lag mein Schwerpunkt auf <strong>Zend Framework und Angular</strong>, später kamen <strong>Laravel und Vue.js</strong> stärker zum Einsatz. Ich habe bestehende Anwendungen erweitert, neue Funktionen umgesetzt und Shopware-Projekte weiterentwickelt. Dazu gehörten insbesondere die Entwicklung und Anpassung von Shopware-Plugins sowie individuelle Anforderungen im Backend und Frontend.</p><p>Im Team haben wir mit <strong>Acceptance Test-Driven Development (ATDD)</strong> und <strong>Pair Programming</strong> gearbeitet. Dadurch habe ich gelernt, Anforderungen gemeinsam zu verstehen, Änderungen mit Tests abzusichern und mich strukturiert in bestehende Codebasen einzuarbeiten.</p><h3>Hinke GmbH <small>11/2021 – 01/2024 · Senior Full-Stack-E-Commerce-Entwickler</small></h3><p>Bei Hinke lag mein Schwerpunkt auf <strong>B2C-E-Commerce</strong>, insbesondere auf dem Online-Shop Pfundskerl. Ich habe hauptsächlich mit <strong>OXID eShop und Symfony</strong> gearbeitet. Zu meinen Aufgaben gehörten die Entwicklung neuer Shop-Funktionen, die Erweiterung bestehender Module, die Umsetzung von Schnittstellen sowie die Wartung und kontinuierliche Weiterentwicklung der Anwendungen.</p><p>Dabei habe ich Backend- und Frontend-Aufgaben übernommen und eng mit den fachlichen Ansprechpartnern zusammengearbeitet. Anforderungen aus dem operativen Geschäft habe ich gemeinsam mit den Beteiligten geklärt und in passende technische Lösungen umgesetzt.</p><h3>TK Deutschland <small>02/2024 – 02/2026 · Backend-Entwickler</small></h3><p>Bei TK Deutschland habe ich schwerpunktmäßig mit <strong>PHP und Symfony 6</strong> an REST-basierten Microservices gearbeitet. Ich habe Backend-Services und APIs entwickelt, bestehende Schnittstellen erweitert und externe Systeme angebunden – unter anderem Integrationen mit <strong>Microsoft Graph und Intune</strong> sowie weiteren Plattformen und Kommunikationsdiensten.</p><p>Die Services liefen containerisiert mit <strong>Docker in Azure und Kubernetes (AKS)</strong>. Außerdem war ich an CI/CD-Prozessen und am technischen Betrieb der Anwendungen beteiligt. Je nach Anwendungsfall kamen <strong>RabbitMQ, Redis, Elasticsearch, RoadRunner und Temporal</strong> zum Einsatz. Für Tests und Debugging habe ich <strong>PHPUnit und Xdebug</strong> verwendet; Monitoring und Observability erfolgten unter anderem mit <strong>Prometheus und Grafana</strong>.</p><p>Im Mittelpunkt standen für mich eine zuverlässige Kommunikation zwischen Services, stabile Schnittstellen, eine strukturierte Fehleranalyse und eine sichere Bereitstellung der Backend-Anwendungen.</p>',
                     ''
+                [
+                    'Laravel',
+                    '<p>Ich habe mit <strong>Laravel</strong> bei Wizmo GmbH an individuellen Webanwendungen und Backend-Funktionen gearbeitet. Wir brauchten dort eine flexible Grundlage, um fachliche Anforderungen schnell umzusetzen und externe Schnittstellen anzubinden. Ich habe Controller, Services, Datenbankzugriffe und API-Funktionen entwickelt und bestehende Anwendungen erweitert. In meinen aktuellen Praxisprojekten nutze ich Laravel 12 mit PHP 8.4, um beispielsweise Order- und Warehouse-Prozesse an ein ERP-System anzubinden. Die eingesetzte Laravel-Version habe ich jeweils an den Projektzeitraum angepasst.</p>',
+                    ''
+                ],
+                [
+                    'MySQL',
+                    '<p>Ich habe mit <strong>MySQL</strong> in Web- und E-Commerce-Anwendungen gearbeitet, wenn strukturierte Geschäfts- und Shopdaten zuverlässig gespeichert und verarbeitet werden mussten. Dazu gehörten relationale Datenmodelle, SQL-Abfragen und die Arbeit mit Datenbankzugriffen aus PHP-Anwendungen. Bei der Entwicklung habe ich darauf geachtet, Abfragen nachvollziehbar zu halten und Daten konsistent zu verarbeiten. In neueren Praxisprojekten verwende ich PostgreSQL 17; die konkreten MySQL-Versionen der früheren Kundenprojekte sind nicht dokumentiert und werden deshalb nicht pauschal festgelegt.</p>',
+                    ''
+                ],
+                [
+                    'Symfony',
+                    '<p>Ich habe mit <strong>Symfony</strong> in mehreren Projekten gearbeitet. Bei Hinke habe ich Symfony für individuelle Backend-Anwendungen und Schnittstellen rund um den E-Commerce-Shop Pfundskerl eingesetzt. Bei TK Deutschland habe ich anschließend mit <strong>Symfony 6</strong> REST-basierte Microservices entwickelt und externe Plattformen angebunden. Dabei ging es darum, Geschäftslogik sauber zu strukturieren, APIs stabil bereitzustellen und die Services wartbar zu halten.</p>',
+                    ''
+                ],
+                [
+                    'Microservices und REST APIs',
+                    '<p>Ich habe mit <strong>Microservices und REST APIs</strong> vor allem bei TK Deutschland gearbeitet. Dort mussten verschiedene interne Anwendungen und externe Plattformen zuverlässig miteinander kommunizieren. Deshalb habe ich mit Symfony 6 eigenständige Backend-Services und REST-Schnittstellen entwickelt, Request- und Response-Daten strukturiert verarbeitet und Integrationen unter anderem mit Microsoft Graph und Intune umgesetzt. Ein wichtiger Teil der Arbeit war, Services möglichst klar voneinander zu entkoppeln und Fehler an Systemgrenzen kontrolliert zu behandeln.</p>',
+                    ''
+                ],
+                [
+                    'Authentication und Sicherheit',
+                    '<p>Ich habe mich mit <strong>Authentifizierung und API-Sicherheit</strong> insbesondere bei TK Deutschland beschäftigt, weil Backend-Services auf interne und externe Plattformen zugreifen mussten und dabei Identitäten sowie Berechtigungen berücksichtigt werden sollten. Im Integrationskontext habe ich mit Microsoft Entra ID und Microsoft Graph gearbeitet und Authentifizierungs- sowie Autorisierungsabläufe in die Backend-Kommunikation einbezogen. Bei API-Entwicklung achte ich außerdem auf Eingabevalidierung, kontrollierte Fehlerantworten und darauf, dass geschützte Funktionen nicht ohne die erforderlichen Berechtigungen erreichbar sind.</p>',
+                    ''
+                ],
+                [
+                    'Performance und Optimierung',
+                    '<p>Ich habe mich mit <strong>Performance-Optimierung</strong> in unterschiedlichen Backend- und E-Commerce-Projekten beschäftigt. Bei Hinke und Pfundskerl war es wichtig, Shop-Funktionen und Datenzugriffe so umzusetzen, dass bestehende Abläufe zuverlässig und performant bleiben. Bei TK Deutschland habe ich in einer Microservice-Umgebung mit Redis, Elasticsearch und RoadRunner gearbeitet. Je nach Anwendungsfall ging es darum, unnötige Datenbankzugriffe zu vermeiden, wiederkehrende Zugriffe effizienter zu gestalten und die Verarbeitungslast sinnvoll zu verteilen.</p>',
+                    ''
+                ],
+                [
+                    'Temporal und Workflow-Orchestrierung',
+                    '<p>Ich habe <strong>Temporal</strong> bei TK Deutschland im Umfeld verteilter Backend-Prozesse eingesetzt. Einige Abläufe bestanden aus mehreren Schritten und Systemaufrufen und sollten auch dann zuverlässig weiterlaufen, wenn ein externer Dienst vorübergehend nicht erreichbar war. Temporal half dabei, länger laufende Workflows zu orchestrieren und deren Zustand nachvollziehbar zu verwalten. Dadurch konnten Prozessschritte robuster koordiniert werden, statt die gesamte Ablaufsteuerung in einem einzelnen synchronen Request abzubilden.</p>',
+                    ''
+                ],
+                [
+                    'Logging und Monitoring',
+                    '<p>Ich habe <strong>Logging und Monitoring</strong> in meinen Projekten genutzt, um Fehler schneller zu finden und den technischen Zustand von Anwendungen nachvollziehen zu können. Bei Hinke kamen unter anderem Monolog und Sentry im Anwendungskontext zum Einsatz. Bei TK Deutschland habe ich außerdem mit Prometheus und Grafana gearbeitet, um Metriken und das Laufzeitverhalten der Services sichtbar zu machen. Gerade bei Microservices war es wichtig, Fehler systemübergreifend einzugrenzen und Probleme nicht nur anhand einer einzelnen API-Antwort zu analysieren.</p>',
+                    ''
+                ],
+                [
+                    'CI/CD und Deployment',
+                    '<p>Ich habe mit <strong>CI/CD-Prozessen</strong> bei TK Deutschland gearbeitet, weil die Symfony-Microservices reproduzierbar gebaut, getestet und in die Azure-Umgebung ausgeliefert werden mussten. Die Anwendungen wurden mit Docker containerisiert und auf Kubernetes (AKS) betrieben. In den Delivery-Prozessen spielten automatisierte Tests, Build- und Deployment-Schritte sowie eine nachvollziehbare Auslieferung eine wichtige Rolle. Dadurch konnten Änderungen kontrollierter und konsistenter in die jeweiligen Umgebungen gebracht werden.</p>',
+                    ''
+                ],
                 ],
             ],
             'Project' => [
