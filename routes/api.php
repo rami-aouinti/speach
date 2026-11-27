@@ -9,4 +9,5 @@ Route::get('/health', function () {
 });
 
 Route::apiResource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
+Route::patch('/posts/{post}/move', [PostController::class, 'move']);
 Route::apiResource('posts', PostController::class)->only(['store', 'update', 'destroy']);
