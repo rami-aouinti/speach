@@ -237,7 +237,7 @@ function App() {
           </div>
           <div className="post-list">
             {(category.name === 'General' ? [...category.posts].sort((a, b) => { const priority = title => ({ 'Einführung': 0, 'Erfahrung': 1 })[title] ?? 2; return priority(a.title) - priority(b.title); }) : category.posts).map((post) => <article
-              className={`post-card ${draggedPostId === post.id ? 'post-card-dragging' : ''}`}
+              className={`post-card ${category.name === 'Others' ? 'post-card-other' : ''} ${draggedPostId === post.id ? 'post-card-dragging' : ''}`}
               key={post.id}
               draggable
               onDragStart={(event) => { event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('text/plain', String(post.id)); setDraggedPostId(post.id); }}
@@ -258,7 +258,7 @@ function App() {
     {modal?.type === 'post-detail' && <Modal title="" onClose={() => setModal(null)} wide minimal>
       <div className="modal-minimal-content">
         <div className="detail-summary rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description || '') }} />
-        {modal.post.description_detail?.trim() && <button className="primary-button" onClick={() => setModal({ type: 'post-detail-detail', post: modal.post })}>Detail</button>}
+        {modal.post.description_detail?.trim() && categories.find(category => Number(category.id) === Number(modal.post.category_id))?.name !== 'Others' && <button className="primary-button" onClick={() => setModal({ type: 'post-detail-detail', post: modal.post })}>Detail</button>}
       </div>
     </Modal>}
 
