@@ -39,3 +39,14 @@ html[data-theme="dark"] .rich-editor-content a,html[data-theme="dark"] .rich-out
 html[data-theme="dark"] .rich-editor-content p.is-editor-empty:first-child:before{color:#777e94}html[data-theme="dark"] .empty-state{color:#a6aabd}
 html[data-theme="dark"] .empty-state h2{color:#ececf5}html[data-theme="dark"] .empty-icon{background:#302b50;color:#c0b8ff}
 @media(max-width:600px){.app-shell{padding-top:12px}.board{min-height:calc(100vh - 24px);padding-top:15px}.add-category-card{flex-basis:100%;max-width:none;min-height:58px}.theme-toggle{right:17px;bottom:17px;width:44px;height:44px}}
+
+.modal-minimal{position:relative}
+.modal-minimal-close{position:absolute;top:12px;right:12px;z-index:1;width:32px;height:32px;display:grid;place-items:center;border:0;border-radius:9px;background:transparent;color:#9298aa}
+.modal-minimal-close:hover{background:#f0efff;color:#6658df}
+.modal-minimal-content{display:grid;gap:22px;padding:30px}
+.modal-minimal-content .detail-summary{margin:0;padding-right:22px}
+.modal-minimal-content .detail-body{margin:0;padding-right:8px}
+.modal-minimal-content .primary-button{justify-self:start}
+html[data-theme="dark"] .modal-minimal-close{color:#a6abc0}
+html[data-theme="dark"] .modal-minimal-close:hover{background:#303044;color:#b8b1ff}
+@media(max-width:600px){.modal-minimal-content{padding:25px 21px}.modal-minimal-content .detail-summary{padding-right:18px}}
