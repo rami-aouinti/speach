@@ -13,8 +13,8 @@ class PostController
         $validated = $request->validate([
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'title' => ['required', 'string', 'max:160'],
-            'description' => ['required', 'string', 'max:280'],
-            'description_detail' => ['required', 'string'],
+            'description' => ['required', 'string', 'max:20000'],
+            'description_detail' => ['required', 'string', 'max:100000'],
         ]);
 
         return response()->json(Post::create($validated)->load('category'), 201);

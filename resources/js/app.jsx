@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Link from '@tiptap/extension-link';
+import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
+import DOMPurify from 'dompurify';
 import '../css/app.css';
 
 const emptyPost = { title: '', description: '', description_detail: '', category_id: '' };
@@ -30,6 +36,72 @@ function Modal({ title, subtitle, onClose, children, wide = false }) {
       <header className="modal-header"><div><span className="eyebrow">SPEACH WORKSPACE</span><h2 id="modal-title">{title}</h2>{subtitle && <p>{subtitle}</p>}</div><button className="icon-button" onClick={onClose} aria-label="Close"><Icon name="close" /></button></header>
       {children}
     </section>
+  </div>;
+}
+
+function RichTextEditor({ label, value, onChange, placeholder, minHeight = 112, helper }) {
+  const editor = useEditor({
+    extensions: [
+      StarterKit.configure({ heading: { levels: [2, 3] } }),
+      Underline,
+      Link.configure({ openOnClick: false, autolink: true, linkOnPaste: true, HTMLAttributes: { rel: 'noopener noreferrer nofollow', target: '_blank' } }),
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+    ],
+    content: value || '',
+    editorProps: {
+      attributes: {
+        class: 'rich-editor-content',
+        'aria-label': label,
+        'data-placeholder': placeholder,
+      },
+    },
+    onUpdate: ({ editor: currentEditor }) => onChange(currentEditor.getHTML()),
+  });
+
+  useEffect(() => {
+    if (editor && editor.getHTML() !== (value || '')) {
+      editor.commands.setContent(value || '', false);
+    }
+  }, [editor, value]);
+
+  const command = (action) => (event) => {
+    event.preventDefault();
+    if (editor) action(editor.chain().focus()).run();
+  };
+  const toolbarButton = (name, title, active, action) => (
+    <button type="button" className={`editor-tool ${active ? 'is-active' : ''}`} title={title} aria-label={title} onMouseDown={command(action)} disabled={!editor}>
+      {name}
+    </button>
+  );
+
+  return <div className="rich-field">
+    <div className="rich-field-heading"><label>{label}</label>{helper && <span>{helper}</span>}</div>
+    <div className="rich-editor" style={{ '--editor-min-height': `${minHeight}px` }}>
+      <div className="editor-toolbar" role="toolbar" aria-label={`${label} formatting`}>
+        {toolbarButton('B', 'Bold', editor?.isActive('bold'), chain => chain.toggleBold())}
+        {toolbarButton('I', 'Italic', editor?.isActive('italic'), chain => chain.toggleItalic())}
+        {toolbarButton('U', 'Underline', editor?.isActive('underline'), chain => chain.toggleUnderline())}
+        <span className="editor-tool-separator" />
+        {toolbarButton('H2', 'Heading 2', editor?.isActive('heading', { level: 2 }), chain => chain.toggleHeading({ level: 2 }))}
+        {toolbarButton('H3', 'Heading 3', editor?.isActive('heading', { level: 3 }), chain => chain.toggleHeading({ level: 3 }))}
+        <span className="editor-tool-separator" />
+        {toolbarButton('• List', 'Bullet list', editor?.isActive('bulletList'), chain => chain.toggleBulletList())}
+        {toolbarButton('1. List', 'Numbered list', editor?.isActive('orderedList'), chain => chain.toggleOrderedList())}
+        {toolbarButton('❝', 'Quote', editor?.isActive('blockquote'), chain => chain.toggleBlockquote())}
+        <span className="editor-tool-separator" />
+        {toolbarButton('↤', 'Align left', editor?.isActive({ textAlign: 'left' }), chain => chain.setTextAlign('left'))}
+        {toolbarButton('↔', 'Align center', editor?.isActive({ textAlign: 'center' }), chain => chain.setTextAlign('center'))}
+        {toolbarButton('↦', 'Align right', editor?.isActive({ textAlign: 'right' }), chain => chain.setTextAlign('right'))}
+        <span className="editor-tool-separator" />
+        {toolbarButton('↗', 'Add link', editor?.isActive('link'), chain => {
+          const url = window.prompt('Enter the link URL');
+          return url ? chain.setLink({ href: url }) : chain;
+        })}
+        {toolbarButton('↶', 'Undo', false, chain => chain.undo())}
+        {toolbarButton('↷', 'Redo', false, chain => chain.redo())}
+      </div>
+      <EditorContent editor={editor} />
+    </div>
   </div>;
 }
 
@@ -138,7 +210,7 @@ function App() {
             {category.posts.map((post) => <article className="post-card" key={post.id}>
               <button className="post-card-main" onClick={() => setModal({ type: 'post-detail', post })}>
                 <span className="post-kicker">POST <span>·</span> {new Date(post.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                <h3>{post.title}</h3><p>{post.description}</p><span className="read-more">Read post <Icon name="arrow" /></span>
+                <h3>{post.title}</h3><div className="post-card-description" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.description || '') }} /><span className="read-more">Read post <Icon name="arrow" /></span>
               </button>
               <div className="post-card-actions"><button className="icon-button tiny" onClick={() => openPost(post, category.id)} aria-label={`Edit ${post.title}`}><Icon name="edit" /></button><button className="icon-button tiny danger-hover" onClick={() => removeItem('posts', post, 'post')} aria-label={`Delete ${post.title}`}><Icon name="trash" /></button></div>
             </article>)}
@@ -150,7 +222,7 @@ function App() {
     <footer className="app-footer"><span>Speach <span className="footer-dot">·</span> A little more clarity, every day.</span><span>Laravel <span className="footer-dot">·</span> React <span className="footer-dot">·</span> PostgreSQL</span></footer>
 
     {modal?.type === 'post-detail' && <Modal title={modal.post.title} subtitle={categories.find((category) => category.id === modal.post.category_id)?.name || 'Post'} onClose={() => setModal(null)} wide>
-      <div className="detail-content"><p className="detail-summary">{modal.post.description}</p><div className="detail-divider" /><div className="detail-body">{modal.post.description_detail}</div><div className="detail-meta">Published {new Date(modal.post.created_at).toLocaleDateString(undefined, { dateStyle: 'long' })}</div></div>
+      <div className="detail-content"><div className="detail-summary rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description || '') }} /><div className="detail-divider" /><div className="detail-body rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description_detail || '') }} /><div className="detail-meta">Published {new Date(modal.post.created_at).toLocaleDateString(undefined, { dateStyle: 'long' })}</div></div>
       <div className="modal-footer"><button className="secondary-button" onClick={() => removeItem('posts', modal.post, 'post')}><Icon name="trash" /> Delete</button><div><button className="secondary-button" onClick={() => setModal(null)}>Close</button><button className="primary-button" onClick={() => openPost(modal.post, modal.post.category_id)}><Icon name="edit" /> Edit post</button></div></div>
     </Modal>}
 
@@ -158,8 +230,8 @@ function App() {
       <form className="modal-form" onSubmit={submitForm}>
         <label>Category<select required value={form.category_id} onChange={(event) => setForm({ ...form, category_id: event.target.value })}>{categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}</select></label>
         <label>Title<input required maxLength="160" placeholder="Give your post a clear title" value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} /></label>
-        <label>Short description<textarea required maxLength="280" rows="2" placeholder="A short introduction to your post…" value={form.description} onChange={(event) => setForm({ ...form, description: event.target.value })} /></label>
-        <label>Detailed description<textarea required rows="6" placeholder="Write the full content here…" value={form.description_detail} onChange={(event) => setForm({ ...form, description_detail: event.target.value })} /></label>
+        <RichTextEditor label="Description" value={form.description} onChange={(description) => setForm(current => ({ ...current, description }))} placeholder="A short introduction to your post…" minHeight={100} helper="Short introduction shown on the post card" />
+        <RichTextEditor label="Detailed description" value={form.description_detail} onChange={(description_detail) => setForm(current => ({ ...current, description_detail }))} placeholder="Write the full content here…" minHeight={220} helper="Format your content just like in a document" />
         <div className="modal-footer"><button type="button" className="secondary-button" onClick={() => setModal(null)}>Cancel</button><button className="primary-button" disabled={saving}>{saving ? 'Saving…' : modal.post ? 'Save changes' : 'Publish post'}</button></div>
       </form>
     </Modal>}

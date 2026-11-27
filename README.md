@@ -26,8 +26,8 @@ Open http://localhost:8080. The API health endpoint is http://localhost:8080/api
 ## Domain
 
 - A category has a unique name and can contain many posts.
-- A post belongs to exactly one category and stores a title, a short description and a detailed description.
-- The board displays categories horizontally, with each category's posts below it. Selecting a post opens its full detail in a modal.
+- A post belongs to exactly one category and stores a title, a rich-text description and a rich-text detailed description. Both descriptions support formatting through Tiptap.
+- The board displays categories horizontally, with each category's posts below it. Selecting a post opens its full rich-text detail in a modal. Post creation and editing use Tiptap's formatting toolbar (bold, italic, underline, headings, lists, quotes, alignment, links, undo and redo).
 - Categories and posts can be created, edited and deleted from the React interface.
 
 ## API

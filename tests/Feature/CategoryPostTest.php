@@ -38,18 +38,18 @@ class CategoryPostTest extends TestCase
         $this->postJson('/api/posts', [
             'category_id' => $category->id,
             'title' => 'First milestone',
-            'description' => 'The first project milestone.',
-            'description_detail' => 'Detailed milestone information.',
-        ])->assertCreated()->assertJsonPath('title', 'First milestone');
+            'description' => '<p><strong>The first</strong> project milestone.</p>',
+            'description_detail' => '<h2>Milestone details</h2><p>Detailed milestone information.</p>',
+        ])->assertCreated()->assertJsonPath('title', 'First milestone')->assertJsonPath('description', '<p><strong>The first</strong> project milestone.</p>');
 
         $post = Post::firstOrFail();
 
         $this->putJson('/api/posts/'.$post->id, [
             'category_id' => $category->id,
             'title' => 'Updated milestone',
-            'description' => 'Updated short description.',
-            'description_detail' => 'Updated detailed content.',
-        ])->assertOk()->assertJsonPath('title', 'Updated milestone');
+            'description' => '<p>Updated <em>short</em> description.</p>',
+            'description_detail' => '<p>Updated detailed content.</p>',
+        ])->assertOk()->assertJsonPath('title', 'Updated milestone')->assertJsonPath('description_detail', '<p>Updated detailed content.</p>');
 
         $this->putJson('/api/categories/'.$category->id, ['name' => 'Projects'])
             ->assertOk()->assertJsonPath('name', 'Projects');
