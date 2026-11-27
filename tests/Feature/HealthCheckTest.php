@@ -10,6 +10,7 @@ class HealthCheckTest extends TestCase
     }
     public function test_homepage_returns_react_application_shell(): void
     {
+        $this->withoutVite();
         $this->get('/')->assertOk()->assertSee('id="app"', false)->assertSee('Speach');
     }
 }
