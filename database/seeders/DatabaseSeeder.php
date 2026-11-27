@@ -86,10 +86,14 @@ class DatabaseSeeder extends Seeder
             $category = Category::firstOrCreate(['name' => $name]);
 
             foreach ($posts as [$title, $description, $detail]) {
-                $category->posts()->firstOrCreate(
+                $category->posts()->updateOrCreate(
                     ['title' => $title],
                     ['description' => $description, 'description_detail' => $detail]
                 );
+            }
+
+            if ($name === 'General') {
+                $category->posts()->whereNotIn('title', array_column($posts, 0))->delete();
             }
         }
     }
