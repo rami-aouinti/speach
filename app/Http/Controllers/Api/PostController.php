@@ -34,6 +34,17 @@ class PostController
         return response()->json($post->load('category'));
     }
 
+    public function move(Request $request, Post $post): JsonResponse
+    {
+        $validated = $request->validate([
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+        ]);
+
+        $post->update(['category_id' => $validated['category_id']]);
+
+        return response()->json($post->load('category'));
+    }
+
     public function destroy(Post $post): JsonResponse
     {
         $post->delete();
