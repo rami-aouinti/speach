@@ -13,7 +13,7 @@ class PostController
         $validated = $request->validate([
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'title' => ['required', 'string', 'max:160'],
-            'description' => ['required', 'string', 'max:20000'],
+            'description' => ['required', 'string', 'max:100000'],
             'description_detail' => ['required', 'string', 'max:100000'],
         ]);
 
@@ -25,7 +25,7 @@ class PostController
         $validated = $request->validate([
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'title' => ['required', 'string', 'max:160'],
-            'description' => ['required', 'string', 'max:280'],
+            'description' => ['required', 'string', 'max:100000'],
             'description_detail' => ['required', 'string'],
         ]);
 
