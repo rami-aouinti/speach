@@ -115,6 +115,8 @@ function App() {
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState(emptyPost);
   const [darkMode, setDarkMode] = useState(() => window.localStorage.getItem('speach-theme') === 'dark');
+  const [draggedPostId, setDraggedPostId] = useState(null);
+  const [dragOverCategoryId, setDragOverCategoryId] = useState(null);
 
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? 'dark' : 'light';
@@ -173,6 +175,38 @@ function App() {
     }
   }
 
+  async function movePost(post, targetCategoryId) {
+    if (!post || Number(post.category_id) === Number(targetCategoryId)) {
+      setDraggedPostId(null);
+      setDragOverCategoryId(null);
+      return;
+    }
+
+    const previousCategories = categories;
+    setCategories(current => current.map(category => ({
+      ...category,
+      posts: category.id === Number(targetCategoryId)
+        ? [...category.posts, { ...post, category_id: Number(targetCategoryId) }]
+        : category.posts.filter(item => item.id !== post.id),
+    })));
+    setDraggedPostId(null);
+    setDragOverCategoryId(null);
+
+    try {
+      const response = await fetch(`/api/posts/${post.id}/move`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ category_id: Number(targetCategoryId) }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Unable to move this post.');
+      await loadCategories();
+    } catch (err) {
+      setCategories(previousCategories);
+      setError(err.message || 'Unable to move this post.');
+    }
+  }
+
   async function removeItem(resource, item, label) {
     if (!window.confirm(`Delete this ${label}? This action cannot be undone.`)) return;
     try {
@@ -190,13 +224,25 @@ function App() {
 
     {loading ? <div className="loading-state"><span className="spinner" /> Loading your workspace…</div> : categories.length === 0 ? <div className="empty-state"><span className="empty-icon"><Icon name="layers" /></span><h2>Your space starts here</h2><p>Create your first category to start collecting posts.</p><button className="primary-button" onClick={() => openCategory(null)}><Icon name="plus" /> Create category</button></div> :
       <section className="board" aria-label="Categories and posts">
-        {categories.map((category, index) => <article className="category-column" key={category.id}>
+        {categories.map((category, index) => <article
+          className={`category-column ${dragOverCategoryId === category.id ? 'category-drop-active' : ''}`}
+          key={category.id}
+          onDragOver={(event) => { event.preventDefault(); if (draggedPostId !== null) setDragOverCategoryId(category.id); }}
+          onDragLeave={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setDragOverCategoryId(null); }}
+          onDrop={(event) => { event.preventDefault(); const post = categories.flatMap(item => item.posts).find(item => item.id === draggedPostId); movePost(post, category.id); }}
+        >
           <div className="category-heading">
             <div className="category-heading-main"><span className={`category-index index-${index % 3}`}>{String(index + 1).padStart(2, '0')}</span><div><h2>{category.name}</h2><span className="post-count">{category.posts.length} {category.posts.length === 1 ? 'post' : 'posts'}</span></div></div>
             <div className="category-actions"><button className="icon-button small" onClick={() => openCategory(category)} aria-label={`Edit ${category.name}`}><Icon name="edit" /></button><button className="icon-button small danger-hover" onClick={() => removeItem('categories', category, 'category')} aria-label={`Delete ${category.name}`}><Icon name="trash" /></button></div>
           </div>
           <div className="post-list">
-            {(category.name === 'General' ? [...category.posts].sort((a, b) => ['Einführung', 'Erfahrung'].indexOf(a.title) - ['Einführung', 'Erfahrung'].indexOf(b.title)) : category.posts).map((post) => <article className="post-card" key={post.id}>
+            {(category.name === 'General' ? [...category.posts].sort((a, b) => ['Einführung', 'Erfahrung'].indexOf(a.title) - ['Einführung', 'Erfahrung'].indexOf(b.title)) : category.posts).map((post) => <article
+              className={`post-card ${draggedPostId === post.id ? 'post-card-dragging' : ''}`}
+              key={post.id}
+              draggable
+              onDragStart={(event) => { event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('text/plain', String(post.id)); setDraggedPostId(post.id); }}
+              onDragEnd={() => { setDraggedPostId(null); setDragOverCategoryId(null); }}
+            >
               <button className="post-card-main" onClick={() => setModal({ type: 'post-detail', post })}>
                 <h3>{post.title}</h3>
               </button>
