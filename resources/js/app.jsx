@@ -212,7 +212,7 @@ function App() {
     {modal?.type === 'post-detail' && <Modal title="" onClose={() => setModal(null)} wide minimal>
       <div className="modal-minimal-content">
         <div className="detail-summary rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description || '') }} />
-        <button className="primary-button" onClick={() => setModal({ type: 'post-detail-detail', post: modal.post })}>Detail</button>
+        {modal.post.description_detail?.trim() && <button className="primary-button" onClick={() => setModal({ type: 'post-detail-detail', post: modal.post })}>Detail</button>}
       </div>
     </Modal>}
 
