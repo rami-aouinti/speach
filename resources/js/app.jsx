@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -19,6 +19,8 @@ function Icon({ name }) {
     arrow: <><path d="M5 12h14m-7-7 7 7-7 7" /></>,
     layers: <><path d="m12 3 9 5-9 5-9-5 9-5Z" /><path d="m3 12 9 5 9-5M3 16l9 5 9-5" /></>,
     file: <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" /><path d="M14 2v6h6M8 13h8m-8 4h8" /></>,
+    moon: <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" />,
+    sun: <><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></>,
   };
   return <svg aria-hidden="true" viewBox="0 0 24 24" className="icon" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
 }
@@ -112,6 +114,12 @@ function App() {
   const [modal, setModal] = useState(null);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState(emptyPost);
+  const [darkMode, setDarkMode] = useState(() => window.localStorage.getItem('speach-theme') === 'dark');
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = darkMode ? 'dark' : 'light';
+    window.localStorage.setItem('speach-theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
 
   const loadCategories = useCallback(async () => {
     setError('');
@@ -128,7 +136,6 @@ function App() {
 
   useEffect(() => { loadCategories(); }, [loadCategories]);
 
-  const postCount = useMemo(() => categories.reduce((total, category) => total + category.posts.length, 0), [categories]);
   const openPost = (post, categoryId) => {
     setForm(post ? { ...post, category_id: String(post.category_id || categoryId) } : { ...emptyPost, category_id: String(categoryId || categories[0]?.id || '') });
     setModal({ type: 'post-form', post });
@@ -179,24 +186,6 @@ function App() {
   }
 
   return <main className="app-shell">
-    <header className="topbar">
-      <a className="brand" href="/" aria-label="Speach home"><span className="brand-symbol">s.</span><span>speach</span></a>
-      <div className="topbar-right"><span className="workspace-label"><span className="online-dot" /> Personal workspace</span><div className="avatar">R</div></div>
-    </header>
-
-    <section className="intro">
-      <div><div className="eyebrow intro-eyebrow">YOUR KNOWLEDGE SPACE</div><h1>Ideas, organised.</h1><p className="intro-copy">A calm space to collect thoughts, share updates and keep the important things close.</p></div>
-      <button className="primary-button" onClick={() => openPost(null, categories[0]?.id)} disabled={!categories.length}><Icon name="plus" /> New post</button>
-    </section>
-
-    <section className="overview-strip" aria-label="Workspace overview">
-      <div className="overview-item"><span className="overview-icon"><Icon name="layers" /></span><span><strong>{categories.length}</strong><small>Categories</small></span></div>
-      <div className="overview-divider" />
-      <div className="overview-item"><span className="overview-icon lilac"><Icon name="file" /></span><span><strong>{postCount}</strong><small>Published posts</small></span></div>
-      <div className="overview-spacer" />
-      <button className="subtle-button" onClick={() => openCategory(null)}><Icon name="plus" /> Add category</button>
-    </section>
-
     {error && <div className="alert" role="alert"><span>{error}</span><button onClick={() => setError('')} aria-label="Dismiss">×</button></div>}
 
     {loading ? <div className="loading-state"><span className="spinner" /> Loading your workspace…</div> : categories.length === 0 ? <div className="empty-state"><span className="empty-icon"><Icon name="layers" /></span><h2>Your space starts here</h2><p>Create your first category to start collecting posts.</p><button className="primary-button" onClick={() => openCategory(null)}><Icon name="plus" /> Create category</button></div> :
@@ -217,9 +206,10 @@ function App() {
             <button className="add-post-card" onClick={() => openPost(null, category.id)}><span className="add-post-icon"><Icon name="plus" /></span><span>Add a post</span></button>
           </div>
         </article>)}
+        <button className="add-category-card" onClick={() => openCategory(null)}><span className="add-post-icon"><Icon name="plus" /></span><span>Add category</span></button>
       </section>
     }
-    <footer className="app-footer"><span>Speach <span className="footer-dot">·</span> A little more clarity, every day.</span><span>Laravel <span className="footer-dot">·</span> React <span className="footer-dot">·</span> PostgreSQL</span></footer>
+    <button className="theme-toggle" type="button" onClick={() => setDarkMode(value => !value)} aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} title={darkMode ? 'Light mode' : 'Dark mode'}><Icon name={darkMode ? 'sun' : 'moon'} /></button>
 
     {modal?.type === 'post-detail' && <Modal title={modal.post.title} subtitle={categories.find((category) => category.id === modal.post.category_id)?.name || 'Post'} onClose={() => setModal(null)} wide>
       <div className="detail-content"><div className="detail-summary rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description || '') }} /><div className="detail-divider" /><div className="detail-body rich-output" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(modal.post.description_detail || '') }} /><div className="detail-meta">Published {new Date(modal.post.created_at).toLocaleDateString(undefined, { dateStyle: 'long' })}</div></div>
