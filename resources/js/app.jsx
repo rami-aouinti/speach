@@ -236,7 +236,7 @@ function App() {
             <div className="category-actions"><button className="icon-button small" onClick={() => openCategory(category)} aria-label={`Edit ${category.name}`}><Icon name="edit" /></button><button className="icon-button small danger-hover" onClick={() => removeItem('categories', category, 'category')} aria-label={`Delete ${category.name}`}><Icon name="trash" /></button></div>
           </div>
           <div className="post-list">
-            {(category.name === 'General' ? [...category.posts].sort((a, b) => ['Einführung', 'Erfahrung'].indexOf(a.title) - ['Einführung', 'Erfahrung'].indexOf(b.title)) : category.posts).map((post) => <article
+            {(category.name === 'General' ? [...category.posts].sort((a, b) => { const priority = title => ({ 'Einführung': 0, 'Erfahrung': 1 })[title] ?? 2; return priority(a.title) - priority(b.title); }) : category.posts).map((post) => <article
               className={`post-card ${draggedPostId === post.id ? 'post-card-dragging' : ''}`}
               key={post.id}
               draggable
