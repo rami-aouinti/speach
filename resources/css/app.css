@@ -50,3 +50,11 @@ html[data-theme="dark"] .empty-state h2{color:#ececf5}html[data-theme="dark"] .e
 html[data-theme="dark"] .modal-minimal-close{color:#a6abc0}
 html[data-theme="dark"] .modal-minimal-close:hover{background:#303044;color:#b8b1ff}
 @media(max-width:600px){.modal-minimal-content{padding:25px 21px}.modal-minimal-content .detail-summary{padding-right:18px}}
+
+/* Kanban drag and drop */
+.category-column{border-radius:15px;transition:background .18s,box-shadow .18s}
+.category-column.category-drop-active{background:#efedff80;box-shadow:0 0 0 2px #8d82eb inset}
+.post-card[draggable="true"]{cursor:grab}
+.post-card[draggable="true"]:active{cursor:grabbing}
+.post-card-dragging{opacity:.42;transform:scale(.98)}
+html[data-theme="dark"] .category-column.category-drop-active{background:#292541;box-shadow:0 0 0 2px #7468c8 inset}
