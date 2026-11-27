@@ -173,6 +173,11 @@ class DatabaseSeeder extends Seeder
             $category = Category::firstOrCreate(['name' => $name]);
 
             foreach ($posts as [$title, $description, $detail]) {
+                if ($name === 'Others') {
+                    $description = $detail !== '' ? $detail : $description;
+                    $detail = '';
+                }
+
                 $category->posts()->updateOrCreate(
                     ['title' => $title],
                     ['description' => $description, 'description_detail' => $detail]
