@@ -198,7 +198,7 @@ function App() {
           <div className="post-list">
             {category.posts.map((post) => <article className="post-card" key={post.id}>
               <button className="post-card-main" onClick={() => setModal({ type: 'post-detail', post })}>
-                <h3>{post.title}</h3><div className="post-card-description" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.description || '') }} />
+                <h3>{post.title}</h3>
               </button>
               <div className="post-card-actions"><button className="icon-button tiny" onClick={() => openPost(post, category.id)} aria-label={`Edit ${post.title}`}><Icon name="edit" /></button><button className="icon-button tiny danger-hover" onClick={() => removeItem('posts', post, 'post')} aria-label={`Delete ${post.title}`}><Icon name="trash" /></button></div>
             </article>)}
