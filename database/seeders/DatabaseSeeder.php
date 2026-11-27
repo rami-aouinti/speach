@@ -23,8 +23,51 @@ class DatabaseSeeder extends Seeder
                 ],
             ],
             'Project' => [
-                ['Project overview', 'Keep project updates, decisions and milestones in one place.', 'Use this category to share project context, progress updates, milestones and decisions. Add enough detail so that everyone can understand what changed and what needs attention next.'],
-                ['Next milestones', 'A concise view of the upcoming work and priorities.', 'Describe the next milestones, the expected outcome and any dependencies. Update this post as the project evolves so the team always has a reliable overview.'],
+                [
+                    'Raucon GmbH – Plattform und Zoom-Integration',
+                    '<p><strong>Zeitraum:</strong> 08/2018 – 04/2021 · Wizmo GmbH</p><h3>Ausgangssituation und Problem</h3><p>Für Raucon sollte eine zentrale Webplattform entstehen, über die Informationen und digitale Abläufe gebündelt und Online-Termine einfacher organisiert werden konnten. Eine wichtige Herausforderung war die zuverlässige Einbindung externer Dienste in die bestehende Anwendung.</p><h3>Umsetzung</h3><p>Ich war an der Entwicklung der Webplattform und der Integration der Zoom-Schnittstelle beteiligt. Dabei wurden Backend-Funktionen und die Benutzeroberfläche umgesetzt und externe API-Aufrufe in die Anwendung eingebunden.</p><h3>Technologien</h3><p><strong>PHP, Laravel, Vue.js, Zoom API, REST</strong>. Die eingesetzten Framework-Versionen richteten sich nach dem damaligen Projektstand (2018–2021).</p>',
+                    ''
+                ],
+                [
+                    'First Medical – B2B-Shop und ERP-Anbindung',
+                    '<p><strong>Zeitraum:</strong> 08/2018 – 04/2021 · Wizmo GmbH</p><h3>Ausgangssituation und Problem</h3><p>First Medical benötigte E-Commerce-Funktionen für Geschäftskunden. Produktinformationen, Verfügbarkeiten und Bestellprozesse mussten mit externen Warenwirtschafts- beziehungsweise ERP-Abläufen zusammenspielen. Die Herausforderung bestand darin, Shop-Prozesse und externe Daten konsistent zu halten.</p><h3>Umsetzung</h3><p>Ich entwickelte und erweiterte Shopware-Funktionen und Plugins für die benötigten B2B-Prozesse. Dazu gehörten individuelle Anpassungen im Shop sowie die technische Anbindung und Verarbeitung externer Daten und Bestellinformationen.</p><h3>Technologien</h3><p><strong>PHP, Shopware 5, Shopware 6, Shopware-Plugins, REST/API-Integrationen</strong>. Die Shopware-Version kam abhängig vom jeweiligen Projektstand zum Einsatz.</p>',
+                    ''
+                ],
+                [
+                    'Pfundskerl – B2C-E-Commerce und Shop-Weiterentwicklung',
+                    '<p><strong>Zeitraum:</strong> 11/2021 – 01/2024 · Hinke GmbH</p><h3>Ausgangssituation und Problem</h3><p>Der B2C-Online-Shop Pfundskerl musste kontinuierlich erweitert werden. Neben neuen Shop-Funktionen waren interne Abläufe, Datenübertragung und die Nachverfolgbarkeit von Bestellungen relevant. Besonders wichtig war die zuverlässige Synchronisation zwischen dem Shop und dem Warenwirtschaftssystem pixi.</p><h3>Umsetzung</h3><p>Ich entwickelte neue Funktionen und Erweiterungen für den Online-Shop auf Basis von OXID eShop und setzte zusätzliche Symfony-Anwendungen und Schnittstellen um. Ein Schwerpunkt war ein Synchronisationsdienst zwischen Shop und pixi, damit Bestell- und Prozessdaten systemübergreifend verarbeitet werden konnten. Außerdem arbeitete ich an einer internen Mitarbeiter-Anwendung sowie an der GA4-Integration über den DataLayer.</p><h3>Technologien</h3><p><strong>PHP, OXID eShop, Symfony, REST/APIs, pixi, Monolog, Sentry, Grafana, Google Analytics 4 (DataLayer)</strong>. Eingesetzte Framework- und Shop-Versionen entsprachen dem Projektstand 2021–2024.</p>',
+                    ''
+                ],
+                [
+                    'Order Management – Laravel-Anbindung an ein ERP-System',
+                    '<p><strong>Zeitraum:</strong> 2026 · Eigenständiges Praxisprojekt</p><h3>Ausgangssituation und Problem</h3><p>Bestellungen entstehen häufig in unterschiedlichen Systemen. Ohne eine zentrale Schnittstelle müssen Auftragsdaten mehrfach gepflegt werden; Statusänderungen und Rückmeldungen aus dem ERP sind nicht immer unmittelbar im operativen System sichtbar.</p><h3>Umsetzung</h3><p>Konzeption und Entwicklung eines Laravel-basierten Order-Management-Services, der Bestellungen über APIs mit einem ERP-System austauscht. Der Service bildet den Lebenszyklus einer Bestellung ab, verarbeitet Statusänderungen und stellt eine nachvollziehbare Kommunikation zwischen den beteiligten Systemen sicher.</p><h3>Technologien</h3><p><strong>PHP 8.4, Laravel 12, REST APIs, PostgreSQL 17, Docker</strong>. Fokus auf klare Schnittstellen, Validierung, Fehlerbehandlung und wartbare Service-Strukturen.</p>',
+                    ''
+                ],
+                [
+                    'Warehouse Management – Laravel-Integration für Lagerbestände',
+                    '<p><strong>Zeitraum:</strong> 2026 · Eigenständiges Praxisprojekt</p><h3>Ausgangssituation und Problem</h3><p>Lagerbestände und Warenbewegungen müssen zwischen Lagerverwaltung und ERP konsistent bleiben. Verzögerte oder doppelte Übertragungen können zu falschen Bestandsanzeigen, fehlerhaften Kommissionierungen und unzuverlässigen Verfügbarkeiten führen.</p><h3>Umsetzung</h3><p>Entwicklung eines Laravel-Services zur Integration von Lagerprozessen mit einem ERP-System. Der Service verarbeitet Bestandsänderungen und Warenbewegungen, synchronisiert relevante Informationen über APIs und berücksichtigt eine robuste Verarbeitung wiederholter Nachrichten, damit Daten nicht unkontrolliert doppelt übernommen werden.</p><h3>Technologien</h3><p><strong>PHP 8.4, Laravel 12, REST APIs, PostgreSQL 17, Docker</strong>. Schwerpunkte: Datenkonsistenz, Idempotenz, strukturierte Fehlerbehandlung und nachvollziehbare Prozessabläufe.</p>',
+                    ''
+                ],
+                [
+                    'TK Deutschland – Symfony-Microservices und API-Integration',
+                    '<p><strong>Zeitraum:</strong> 02/2024 – 02/2026 · TK Deutschland</p><h3>Ausgangssituation und Problem</h3><p>Unterschiedliche interne und externe Plattformen mussten sicher und zuverlässig miteinander kommunizieren. Die Herausforderung lag in klaren API-Verträgen, einheitlicher Fehlerbehandlung, Authentifizierung und der stabilen Verarbeitung verteilter Geschäftsprozesse.</p><h3>Umsetzung</h3><p>Entwicklung und Erweiterung von REST-basierten Backend-Microservices. Dazu gehörten wiederverwendbare Request- und Response-DTOs, Validierung, Serialisierung, zentrale Fehlerbehandlung sowie die Integration externer Plattformen. Die Services wurden containerisiert betrieben und über CI/CD bereitgestellt.</p><h3>Technologien</h3><p><strong>PHP, Symfony 6, REST, DTOs, JWT, Docker, Azure, Kubernetes (AKS), PHPUnit, Xdebug</strong>.</p>',
+                    ''
+                ],
+                [
+                    'TK Deutschland – Identity- und Device-Integration',
+                    '<p><strong>Zeitraum:</strong> 02/2024 – 02/2026 · TK Deutschland</p><h3>Ausgangssituation und Problem</h3><p>Benutzer- und Geräteinformationen lagen in externen Microsoft-Diensten. Anwendungen benötigten einen kontrollierten Zugriff auf diese Informationen, ohne Authentifizierungs- und Integrationslogik mehrfach und unterschiedlich zu implementieren.</p><h3>Umsetzung</h3><p>Entwicklung von Backend-Integrationen für Microsoft-Dienste. Die Services kommunizierten über APIs mit Microsoft Graph und Intune und kapselten externe Zugriffe in wiederverwendbaren Komponenten. Authentifizierung, Berechtigungen und Fehlerfälle wurden in den Integrationsablauf einbezogen.</p><h3>Technologien</h3><p><strong>PHP, Symfony 6, Microsoft Graph API, Microsoft Intune, Microsoft Entra ID, REST, Docker, Azure, PHPUnit</strong>.</p>',
+                    ''
+                ],
+                [
+                    'TK Deutschland – Event- und Workflow-Microservice',
+                    '<p><strong>Zeitraum:</strong> 02/2024 – 02/2026 · TK Deutschland</p><h3>Ausgangssituation und Problem</h3><p>Verteilte Anwendungen müssen auf Ereignisse reagieren können, ohne direkt voneinander abhängig zu sein. Synchrone Verarbeitung allein reicht bei längeren Abläufen, Wiederholungen oder vorübergehend nicht verfügbaren Drittsystemen häufig nicht aus.</p><h3>Umsetzung</h3><p>Arbeit an ereignisgesteuerten Integrations- und Workflow-Abläufen. Nachrichten wurden asynchron verarbeitet; länger laufende Prozesse konnten orchestriert und Fehler beziehungsweise Wiederholungen kontrolliert behandelt werden. Dadurch wurden Services entkoppelt und Integrationen robuster gestaltet.</p><h3>Technologien</h3><p><strong>PHP, Symfony 6, RabbitMQ, Temporal, Redis, REST, Docker, Azure, Kubernetes (AKS)</strong>.</p>',
+                    ''
+                ],
+                [
+                    'TK Deutschland – Interner KI-Assistent mit Laravel und React',
+                    '<p><strong>Zeitraum:</strong> 02/2024 – 02/2026 · TK Deutschland</p><h3>Ausgangssituation und Problem</h3><p>Wissen und Informationen aus internen Quellen sollten für Mitarbeitende einfacher zugänglich werden. Eine reine Chat-Oberfläche reicht dafür nicht aus: Es braucht eine benutzerfreundliche Oberfläche und ein Backend, das Anfragen verarbeitet und interne beziehungsweise angebundene Dienste kontrolliert integriert.</p><h3>Umsetzung</h3><p>Mitwirkung an einem internen KI-Assistenten. Ich arbeitete an der Anwendungs- und Integrationsseite mit und unterstützte die Verbindung zwischen Frontend, Backend und den benötigten Diensten. Der Schwerpunkt lag auf einer klaren API-Kommunikation und einer praxistauglichen Einbettung des Assistenten in bestehende Arbeitsabläufe.</p><h3>Technologien</h3><p><strong>PHP, Laravel, React, REST APIs, Docker</strong>. Die konkreten Framework-Unterversionen sind hier bewusst nicht festgeschrieben.</p>',
+                    ''
+                ],
             ],
             'Others' => [
                 ['Useful resources', 'Links, references and material worth keeping close.', 'Collect useful resources and references here. Add a short explanation for each item so readers understand why it is relevant and when they might need it.'],
@@ -93,6 +136,10 @@ class DatabaseSeeder extends Seeder
             }
 
             if ($name === 'General') {
+                $category->posts()->whereNotIn('title', array_column($posts, 0))->delete();
+            }
+
+            if ($name === 'Project') {
                 $category->posts()->whereNotIn('title', array_column($posts, 0))->delete();
             }
 
